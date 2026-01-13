@@ -1,0 +1,126 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:pheditor/DS/pallete.dart';
+
+enum FieldType { name, email, pass, confirmPass }
+
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final FieldType type;
+
+  final Color _textColor = Pallete.secondaryGreyText;
+
+  const CustomTextField({
+    super.key,
+    required this.controller,
+    required this.type,
+    this.keyboardType,
+    this.validator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(100),
+            blurRadius: 10,
+            spreadRadius: -5,
+            offset: Offset(0, -3),
+          ),
+          BoxShadow(
+            color: Colors.black.withAlpha(100),
+            blurRadius: 10,
+            spreadRadius: -5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/neon.jpg'),
+                fit: BoxFit.cover,
+                opacity: 0.2,
+              ),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: _textColor, width: 0.5),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: TextFormField(
+                controller: controller,
+                cursorColor: _textColor,
+                obscureText: _shouldObscure(),
+                keyboardType: keyboardType,
+                validator: validator,
+                decoration: InputDecoration(
+                  filled: false,
+                  border: UnderlineInputBorder(),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: _textColor, width: 1),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Pallete.primaryWhiteText,
+                      width: 2,
+                    ),
+                  ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Pallete.borderError,
+                      width: 2,
+                    ),
+                  ),
+                  focusedErrorBorder: UnderlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Pallete.borderError,
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _nameText() {
+    switch (type) {
+      case FieldType.name:
+        return 'Имя';
+      case FieldType.email:
+        return 'e-mail';
+      case FieldType.pass:
+        return 'Пароль';
+      case FieldType.confirmPass:
+        return 'Подтверждение пароля';
+    }
+  }
+
+  String _placeholderText() {
+    switch (type) {
+      case FieldType.name:
+        return 'Введите ваше имя';
+      case FieldType.email:
+        return 'Ваша электронная почта';
+      default:
+        return '8-16 символов';
+    }
+  }
+
+  bool _shouldObscure() {
+    return type == FieldType.pass || type == FieldType.confirmPass;
+  }
+}
