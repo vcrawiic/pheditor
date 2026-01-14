@@ -3,7 +3,6 @@ import 'package:pheditor/services/auth_service.dart';
 import 'auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class AuthCubit extends Cubit<AuthState> {
   final AuthService _authService;
   StreamSubscription? _authSubscription;
@@ -54,5 +53,13 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> close() async {
     await _authSubscription?.cancel();
     return super.close();
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _authService.signOut();
+    } catch (_) {
+      print('logout error');
+    }
   }
 }

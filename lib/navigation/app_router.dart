@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:pheditor/DI/global_dependencies.dart';
 import 'package:pheditor/navigation/routes.dart';
 import 'package:pheditor/pages/auth_page/auth_page.dart';
+import 'package:pheditor/pages/auth_page/registration_page.dart';
 import 'package:pheditor/pages/canvas/canvas_page.dart';
+import 'package:pheditor/pages/canvas/canvas_args.dart';
 import 'package:pheditor/pages/gallery/gallery_page.dart';
 
 final rootNavigationKey = GlobalKey<NavigatorState>();
@@ -13,9 +15,11 @@ final appRouter = GoRouter(
   initialLocation: AppRoutes.gallery,
   redirect: (context, state) {
     final isLoggedIn = GlobalDependencies.authService.currentUser != null;
-    final isOnAuth = state.matchedLocation == AppRoutes.auth;
+    final isOnAuthFlow =
+        state.matchedLocation == AppRoutes.auth ||
+        state.matchedLocation == AppRoutes.registration;
 
-    if (!isLoggedIn && !isOnAuth) {
+    if (!isLoggedIn && !isOnAuthFlow) {
       return AppRoutes.auth;
     }
     return null;
@@ -26,12 +30,19 @@ final appRouter = GoRouter(
       builder: (context, state) => const AuthPage(),
     ),
     GoRoute(
+      path: AppRoutes.registration,
+      builder: (context, state) => const RegistrationPage(),
+    ),
+    GoRoute(
       path: AppRoutes.gallery,
       builder: (context, state) => GalleryPage(),
     ),
     GoRoute(
       path: AppRoutes.canvas,
-      builder: (context, state) => CanvasPage(),
+      builder: (context, state) {
+        final args = state.extra as CanvasArgs? ?? const CanvasArgs.create();
+        return CanvasPage(args: args);
+      },
     ),
   ],
 );

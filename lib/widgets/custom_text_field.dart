@@ -57,37 +57,63 @@ class CustomTextField extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: TextFormField(
-                controller: controller,
-                cursorColor: _textColor,
-                obscureText: _shouldObscure(),
-                keyboardType: keyboardType,
-                validator: validator,
-                decoration: InputDecoration(
-                  filled: false,
-                  border: UnderlineInputBorder(),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: _textColor, width: 1),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _nameText(),
+                    style: TextStyle(
+                      color: Pallete.secondaryGreyText,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: const BorderSide(
+                  TextFormField(
+                    controller: controller,
+                    cursorColor: _textColor,
+                    obscureText: _shouldObscure(),
+                    keyboardType: keyboardType,
+                    validator: validator,
+                    style: TextStyle(
                       color: Pallete.primaryWhiteText,
-                      width: 2,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    decoration: InputDecoration(
+                      hint: Text(
+                        _placeholderText(),
+                        style: TextStyle(
+                          color: Pallete.secondaryGreyText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      filled: false,
+                      border: UnderlineInputBorder(),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: _textColor, width: 1),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Pallete.primaryWhiteText,
+                          width: 2,
+                        ),
+                      ),
+                      errorBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Pallete.borderError,
+                          width: 2,
+                        ),
+                      ),
+                      focusedErrorBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Pallete.borderError,
+                          width: 2,
+                        ),
+                      ),
                     ),
                   ),
-                  errorBorder: UnderlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Pallete.borderError,
-                      width: 2,
-                    ),
-                  ),
-                  focusedErrorBorder: UnderlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Pallete.borderError,
-                      width: 2,
-                    ),
-                  ),
-                ),
+                ],
               ),
             ),
           ),

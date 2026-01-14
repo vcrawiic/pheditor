@@ -21,7 +21,31 @@ class Validators {
     }
 
     if (value.length < 8 || value.length > 16) {
-      return 'Пароль должен содержать не менее 8 и не более 16 символов';
+      return 'Не менее 8 и не более 16 символов';
+    }
+    return null;
+  }
+
+  static String? Function(String?) confirmPassword(
+    String Function() getPassword,
+  ) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
+        return 'Подтвердите пароль';
+      }
+      if (value != getPassword()) {
+        return 'Пароли не совпадают';
+      }
+      return null;
+    };
+  }
+
+  static String? name(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Введите имя';
+    }
+    if (value.length < 2 || value.length > 40) {
+      return 'Не менее 2 и не более 40 символов';
     }
     return null;
   }
