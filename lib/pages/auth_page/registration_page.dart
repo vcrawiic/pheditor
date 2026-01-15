@@ -6,7 +6,8 @@ import 'package:pheditor/DS/pallete.dart';
 import 'package:pheditor/pages/auth_page/auth_cubit.dart';
 import 'package:pheditor/pages/auth_page/auth_state.dart';
 import 'package:pheditor/utils/auth_validators.dart';
-import 'package:pheditor/widgets/custom_text_field.dart';
+import 'package:pheditor/widgets/app_toast.dart';
+import 'package:pheditor/pages/auth_page/widgets/custom_text_field.dart';
 import 'package:pheditor/widgets/button.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -58,13 +59,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/splash.jpg'),
           fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -74,7 +76,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           forceMaterialTransparency: true,
           leading: IconButton.outlined(
             onPressed: () => context.pop(),
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_rounded,
               color: Pallete.secondaryGreyText,
             ),
@@ -83,18 +85,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
         body: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Pallete.inputFieldBG,
-                ),
+              AppToast.show(
+                context,
+                message: state.message,
+                type: ToastType.error,
               );
             }
           },
           child: BlocBuilder<AuthCubit, AuthState>(
             builder: (context, state) {
-              return Center(
-                child: Padding(
+              return SafeArea(
+                child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 40,
@@ -106,7 +107,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Spacer(flex: 4),
+                        const SizedBox(height: 20),
                         Text('Регистрация', style: FontStyles.ps2p),
                         CustomTextField(
                           controller: _nameController,
@@ -119,7 +120,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           validator: Validators.email,
                           type: FieldType.email,
                         ),
-                        Divider(color: Pallete.borderInactive),
+                        const Divider(color: Pallete.borderInactive),
                         CustomTextField(
                           controller: _passwordController,
                           validator: Validators.password,
@@ -132,7 +133,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             () => _passwordController.text,
                           ),
                         ),
-                        Spacer(),
+                        const SizedBox(height: 20),
                         Button(
                           'Регистрация',
                           () => _handleSubmit(context),

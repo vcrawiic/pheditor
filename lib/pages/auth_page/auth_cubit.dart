@@ -3,6 +3,7 @@ import 'package:pheditor/services/auth_service.dart';
 import 'auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Управление состоянием авторизации и регистрации
 class AuthCubit extends Cubit<AuthState> {
   final AuthService _authService;
   StreamSubscription? _authSubscription;
@@ -22,7 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
       }
     });
   }
-
+  // Вход по e-mail
   Future<void> signIn(String email, String password) async {
     try {
       if (!isClosed) {
@@ -35,7 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
       }
     }
   }
-
+  //Регистрация
   Future<void> signUp(String email, String password) async {
     try {
       if (!isClosed) {
@@ -54,7 +55,7 @@ class AuthCubit extends Cubit<AuthState> {
     await _authSubscription?.cancel();
     return super.close();
   }
-
+  //Выход
   Future<void> signOut() async {
     try {
       await _authService.signOut();

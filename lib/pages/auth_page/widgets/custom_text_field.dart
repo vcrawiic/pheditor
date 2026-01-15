@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:pheditor/DS/inner_shadow_painter.dart';
 import 'package:pheditor/DS/pallete.dart';
 
 enum FieldType { name, email, pass, confirmPass }
@@ -23,37 +24,31 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(100),
-            blurRadius: 10,
-            spreadRadius: -5,
-            offset: Offset(0, -3),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
+        child: CustomPaint(
+          foregroundPainter: InnerShadowPainter(
+            borderRadius: 8,
+            shadows: const [
+              InnerShadow(
+                color: Color.fromRGBO(227, 227, 227, 0.2),
+                blurRadius: 40,
+                offset: Offset(0, 1),
+              ),
+            ],
           ),
-          BoxShadow(
-            color: Colors.black.withAlpha(100),
-            blurRadius: 10,
-            spreadRadius: -5,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
           child: Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
+              color: const Color(0xFF131313),
+              image: const DecorationImage(
                 image: AssetImage('assets/neon.jpg'),
                 fit: BoxFit.cover,
                 opacity: 0.2,
               ),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _textColor, width: 0.5),
+              border: Border.all(color: const Color(0xFF87858F), width: 0.5),
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -72,6 +67,7 @@ class CustomTextField extends StatelessWidget {
                     controller: controller,
                     cursorColor: _textColor,
                     obscureText: _shouldObscure(),
+                    obscuringCharacter: '*',
                     keyboardType: keyboardType,
                     validator: validator,
                     style: TextStyle(
@@ -101,13 +97,13 @@ class CustomTextField extends StatelessWidget {
                       ),
                       errorBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
-                          color: Pallete.borderError,
+                          color: Pallete.error,
                           width: 2,
                         ),
                       ),
                       focusedErrorBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
-                          color: Pallete.borderError,
+                          color: Pallete.error,
                           width: 2,
                         ),
                       ),

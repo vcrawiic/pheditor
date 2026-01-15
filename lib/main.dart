@@ -6,12 +6,15 @@ import 'package:pheditor/DI/global_dependencies.dart';
 import 'package:pheditor/navigation/app_router.dart';
 import 'package:pheditor/pages/auth_page/auth_cubit.dart';
 import 'package:pheditor/pages/auth_page/auth_state.dart';
+import 'package:pheditor/widgets/connectivity_listener.dart';
 import 'firebase_options.dart';
 
+/// Точка входа. Инициализация Firebase, env-переменных и глобальных сервисов
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await GlobalDependencies.init();
   runApp(MyApp());
 }
 
@@ -36,6 +39,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(fontFamily: 'Roboto', useMaterial3: false),
           debugShowCheckedModeBanner: false,
           routerConfig: appRouter,
+          builder: (context, child) => ConnectivityListener(child: child!),
         ),
       ),
     );

@@ -53,26 +53,25 @@ class _GalleryView extends StatelessWidget {
           title: 'Галерея',
           iconSize: 28,
         ),
-        body: Column(
+        body: Stack(
           children: [
-            const Expanded(child: GalleryContent()),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-                right: 20,
-                top: 46,
-                bottom: 40,
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                child: Button(
-                  'Создать',
-                  () => context.push(
+            const GalleryContent(),
+            Positioned(
+              left: 20,
+              right: 20,
+              bottom: MediaQuery.of(context).padding.bottom + 20,
+              child: Button(
+                'Создать',
+                () async {
+                  final result = await context.push<bool>(
                     AppRoutes.canvas,
                     extra: const CanvasArgs.create(),
-                  ),
-                  gradient: Pallete.primaryGradient,
-                ),
+                  );
+                  if (result == true && context.mounted) {
+                    context.read<GalleryCubit>().refresh();
+                  }
+                },
+                gradient: Pallete.primaryGradient,
               ),
             ),
           ],
@@ -109,7 +108,7 @@ class _GalleryView extends StatelessWidget {
             },
             child: const Text(
               'Выйти',
-              style: TextStyle(color: Pallete.errorText),
+              style: TextStyle(color: Pallete.error),
             ),
           ),
         ],

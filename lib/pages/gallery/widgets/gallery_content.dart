@@ -55,7 +55,7 @@ class _ErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(message, style: const TextStyle(color: Pallete.errorText)),
+      child: Text(message, style: const TextStyle(color: Pallete.error)),
     );
   }
 }
@@ -81,8 +81,15 @@ class _GridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.of(context).padding.bottom + 100;
+
     return GridView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.only(
+        left: 24,
+        right: 24,
+        top: 46,
+        bottom: bottomPadding,
+      ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
@@ -94,10 +101,15 @@ class _GridView extends StatelessWidget {
         final image = images[index];
         return ImageCard(
           imageUrl: image.thumbnailUrl,
-          onTap: () => context.push(
-            AppRoutes.canvas,
-            extra: CanvasArgs.edit(imageId: image.id, imageUrl: image.url),
-          ),
+          onTap: () async {
+            final result = await context.push<bool>(
+              AppRoutes.canvas,
+              extra: CanvasArgs.edit(imageId: image.id, imageUrl: image.url),
+            );
+            if (result == true && context.mounted) {
+              context.read<GalleryCubit>().refresh();
+            }
+          },
         );
       },
     );

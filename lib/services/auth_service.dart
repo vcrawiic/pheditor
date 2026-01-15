@@ -57,11 +57,14 @@ class AuthService {
       case 'user-not-found':
         return 'Пользователь не найден';
       case 'wrong-password':
-        return 'Неверный пароль';
+        return 'Неправильный пароль';
       case 'invalid-email':
-        return 'Неверный email';
+        return 'Неправильный email';
+      case 'invalid-credential':
+        return 'Неправильный email или пароль';
+        
       default:
-        return 'Error: ${e.message}';
+        return 'Что-то пошло не так.';
     }
   }
 }

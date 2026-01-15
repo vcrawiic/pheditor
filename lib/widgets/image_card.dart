@@ -28,7 +28,7 @@ class ImageCard extends StatelessWidget {
           ),
           errorWidget: (context, url, error) => Container(
             color: Pallete.inputFieldBG,
-            child: const Icon(Icons.error_outline, color: Pallete.errorText),
+            child: const Icon(Icons.error_outline, color: Pallete.error),
           ),
           memCacheWidth: 300,
         ),
