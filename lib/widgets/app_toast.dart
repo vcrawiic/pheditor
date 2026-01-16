@@ -32,6 +32,29 @@ class AppToast {
     overlay.insert(_currentEntry!);
   }
 
+  static void showWithOverlay(
+    OverlayState overlay, {
+    required String message,
+    ToastType type = ToastType.info,
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    _currentEntry?.remove();
+
+    _currentEntry = OverlayEntry(
+      builder: (context) => _ToastWidget(
+        message: message,
+        type: type,
+        onDismiss: () {
+          _currentEntry?.remove();
+          _currentEntry = null;
+        },
+        duration: duration,
+      ),
+    );
+
+    overlay.insert(_currentEntry!);
+  }
+
   static void dismiss() {
     _currentEntry?.remove();
     _currentEntry = null;

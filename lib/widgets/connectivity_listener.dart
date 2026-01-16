@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:pheditor/DI/global_dependencies.dart';
+import 'package:pheditor/navigation/app_router.dart';
 import 'package:pheditor/widgets/app_toast.dart';
 
 class ConnectivityListener extends StatefulWidget {
@@ -19,19 +22,28 @@ class _ConnectivityListenerState extends State<ConnectivityListener> {
   @override
   void initState() {
     super.initState();
+    debugPrint('[ConnectivityListener] initState');
     _lastStatus = GlobalDependencies.connectivityService.isConnected;
     _sub = GlobalDependencies.connectivityService.onStatusChange.listen(_handle);
   }
 
   void _handle(bool connected) {
+    debugPrint('[ConnectivityListener] _handle called: $connected');
     if (!mounted) return;
 
-    if (!connected && _lastStatus) {
-      AppToast.show(context, message: 'Нет подключения к интернету', type: ToastType.error);
-    } else if (connected && !_lastStatus) {
-      AppToast.show(context, message: 'Подключение восстановлено', type: ToastType.success);
-    }
+    final wasConnected = _lastStatus;
     _lastStatus = connected;
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final overlay = rootNavigationKey.currentState?.overlay;
+      if (overlay == null) return;
+
+      if (!connected && wasConnected) {
+        AppToast.showWithOverlay(overlay, message: 'Нет подключения к интернету', type: ToastType.error);
+      } else if (connected && !wasConnected) {
+        AppToast.showWithOverlay(overlay, message: 'Подключение восстановлено', type: ToastType.success);
+      }
+    });
   }
 
   @override

@@ -9,12 +9,11 @@ import 'package:pheditor/pages/auth_page/auth_state.dart';
 import 'package:pheditor/widgets/connectivity_listener.dart';
 import 'firebase_options.dart';
 
-/// Точка входа. Инициализация Firebase, env-переменных и глобальных сервисов
+//Точка входа. Инициализация сервисов
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await GlobalDependencies.init();
   runApp(MyApp());
 }
 
