@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pheditor/DS/inner_shadow_painter.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/design/inner_shadow_painter.dart';
+import 'package:pheditor/design/pallete.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onLeftButtonTap;

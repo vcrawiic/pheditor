@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pheditor/DI/global_dependencies.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/dependencies/global_dependencies.dart';
+import 'package:pheditor/design/pallete.dart';
 import 'package:pheditor/navigation/routes.dart';
 import 'package:pheditor/pages/canvas/canvas_args.dart';
 import 'package:pheditor/pages/auth_page/auth_cubit.dart';

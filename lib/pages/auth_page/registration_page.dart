@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pheditor/DS/font_style.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/design/font_style.dart';
+import 'package:pheditor/design/pallete.dart';
 import 'package:pheditor/pages/auth_page/auth_cubit.dart';
 import 'package:pheditor/pages/auth_page/auth_state.dart';
 import 'package:pheditor/utils/auth_validators.dart';

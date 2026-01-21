@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:pheditor/DI/global_dependencies.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/dependencies/global_dependencies.dart';
+import 'package:pheditor/design/pallete.dart';
 import 'package:pheditor/pages/canvas/canvas_args.dart';
 import 'package:pheditor/pages/canvas/canvas_cubit.dart';
 import 'package:pheditor/pages/canvas/canvas_state.dart';
@@ -147,6 +147,11 @@ class _CanvasViewState extends State<_CanvasView> {
   }
 
   Future<void> _shareImage(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final shareOrigin = box != null
+        ? box.localToGlobal(Offset.zero) & box.size
+        : null;
+
     try {
       final boundary = _canvasKey.currentContext?.findRenderObject()
           as RenderRepaintBoundary?;
@@ -164,9 +169,12 @@ class _CanvasViewState extends State<_CanvasView> {
       );
       await file.writeAsBytes(bytes);
 
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        subject: 'Изображение из Pheditor',
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+          subject: 'Изображение из Pheditor',
+          sharePositionOrigin: shareOrigin,
+        ),
       );
     } catch (e) {
       if (context.mounted) {

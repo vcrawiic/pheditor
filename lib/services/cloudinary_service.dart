@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
@@ -32,11 +33,11 @@ class CloudinaryService {
         final jsonResponse = json.decode(responseData);
         return jsonResponse['secure_url'] as String;
       } else {
-        print('Cloudinary upload error: $responseData');
+        debugPrint('Cloudinary upload error: $responseData');
         return null;
       }
     } catch (e) {
-      print('Cloudinary upload exception: $e');
+      debugPrint('Cloudinary upload exception: $e');
       return null;
     }
   }
