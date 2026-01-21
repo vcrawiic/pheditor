@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:pheditor/DI/global_dependencies.dart';
+import 'package:pheditor/dependencies/global_dependencies.dart';
 import 'package:pheditor/navigation/app_router.dart';
 import 'package:pheditor/widgets/app_toast.dart';
 
@@ -24,7 +23,23 @@ class _ConnectivityListenerState extends State<ConnectivityListener> {
     super.initState();
     debugPrint('[ConnectivityListener] initState');
     _lastStatus = GlobalDependencies.connectivityService.isConnected;
-    _sub = GlobalDependencies.connectivityService.onStatusChange.listen(_handle);
+    _sub = GlobalDependencies.connectivityService.onStatusChange.listen(
+      _handle,
+    );
+
+    Future.delayed(const Duration(seconds: 5), () {
+      if (!mounted) return;
+      if (!GlobalDependencies.connectivityService.isConnected) {
+        final overlay = rootNavigationKey.currentState?.overlay;
+        if (overlay != null) {
+          AppToast.showWithOverlay(
+            overlay,
+            message: 'Интернет соединение отсутствует',
+            type: ToastType.error,
+          );
+        }
+      }
+    });
   }
 
   void _handle(bool connected) {
@@ -39,9 +54,17 @@ class _ConnectivityListenerState extends State<ConnectivityListener> {
       if (overlay == null) return;
 
       if (!connected && wasConnected) {
-        AppToast.showWithOverlay(overlay, message: 'Нет подключения к интернету', type: ToastType.error);
+        AppToast.showWithOverlay(
+          overlay,
+          message: 'Нет подключения к интернету',
+          type: ToastType.error,
+        );
       } else if (connected && !wasConnected) {
-        AppToast.showWithOverlay(overlay, message: 'Подключение восстановлено', type: ToastType.success);
+        AppToast.showWithOverlay(
+          overlay,
+          message: 'Подключение восстановлено',
+          type: ToastType.success,
+        );
       }
     });
   }
