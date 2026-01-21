@@ -46,10 +46,19 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Приложению нужен доступ к галерее для выбора изображений</string>
+	<string>Приложению необходим доступ к галерее для загрузки изображений в редактор для последующего их редактирования</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Приложению нужен доступ для сохранения изображений в галерею</string>
+	<string>Приложению необходим доступ для сохранения отредактированных изображений в галерею устройства</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Приложению нужен доступ к камере для создания фотографий</string>
+	<string>Разрешение не используется в приложении, но требуется библиотекой image_picker для захвата изображения с камеры</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Разрешение не используется в приложении, но требуется библиотекой image_picker для захвата аудио при записи видео</string>
+	<key>UIBackgroundModes</key>
+  	<array>
+      <string>fetch</string>
+      <string>remote-notification</string>
+  	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+  	<string>Разрешение не используется в приложении, но требуется библиотекой connectivity_plus</string> 
 </dict>
 </plist>
