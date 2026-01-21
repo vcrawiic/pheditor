@@ -147,6 +147,11 @@ class _CanvasViewState extends State<_CanvasView> {
   }
 
   Future<void> _shareImage(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final shareOrigin = box != null
+        ? box.localToGlobal(Offset.zero) & box.size
+        : null;
+
     try {
       final boundary = _canvasKey.currentContext?.findRenderObject()
           as RenderRepaintBoundary?;
@@ -164,9 +169,12 @@ class _CanvasViewState extends State<_CanvasView> {
       );
       await file.writeAsBytes(bytes);
 
-      await Share.shareXFiles(
-        [XFile(file.path)],
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
         subject: 'Изображение из Pheditor',
+          sharePositionOrigin: shareOrigin,
+        ),
       );
     } catch (e) {
       if (context.mounted) {
