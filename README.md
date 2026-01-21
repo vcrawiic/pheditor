@@ -14,16 +14,16 @@
 ## Архитектура
 
 ```
-DI/                    # Service Locator
-DS/                    # Design System (цвета, шрифты, иконки)
-models/                # Модели данных
+dependencies/          # DI-контейнер
+design/                # Design System (цвета, шрифты, иконки)
+models/                # Общие модели данных
 navigation/            # Роутинг
 pages/                 # Экраны
-auth_page/         # Авторизация
-canvas/            # Холст для рисования
-gallery/           # Галерея
+auth_page/             # Авторизация
+canvas/                # Холст для рисования
+gallery/               # Галерея
 repositories/          # Работа с Firestore
-services/              # Auth, Cloudinary, Connectivity
+services/              # Auth, Cloudinary, Connectivity, Notifications
 widgets/               # Общие виджеты
 ```
 
@@ -55,5 +55,7 @@ flutter run
 
 ```
 CLOUDINARY_CLOUD_NAME=xxx
-CLOUDINARY_UPLOAD_PRESET=xxx
+CLOUDINARY_API_KEY=xxx
+PING_SOURCE=xxx
+
 ```
