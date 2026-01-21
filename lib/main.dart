@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pheditor/dependencies/global_dependencies.dart';
 import 'package:pheditor/navigation/app_router.dart';
+import 'package:pheditor/navigation/routes.dart';
 import 'package:pheditor/pages/auth_page/auth_cubit.dart';
 import 'package:pheditor/pages/auth_page/auth_state.dart';
 import 'package:pheditor/widgets/connectivity_listener.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
       create: (_) => AuthCubit(GlobalDependencies.authService),
       child: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
+          final isOnSplash = appRouter.routerDelegate.currentConfiguration.fullPath == AppRoutes.splash;
+          if (isOnSplash) return;
+
           if (state is Authenticated) {
             appRouter.go('/gallery');
           } else if (state is Unauthenticated) {

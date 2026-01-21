@@ -7,13 +7,17 @@ import 'package:pheditor/pages/auth_page/registration_page.dart';
 import 'package:pheditor/pages/canvas/canvas_page.dart';
 import 'package:pheditor/pages/canvas/canvas_args.dart';
 import 'package:pheditor/pages/gallery/gallery_page.dart';
+import 'package:pheditor/pages/splash/splash_page.dart';
 
 final rootNavigationKey = GlobalKey<NavigatorState>();
 
 final appRouter = GoRouter(
   navigatorKey: rootNavigationKey,
-  initialLocation: AppRoutes.gallery,
+  initialLocation: AppRoutes.splash,
   redirect: (context, state) {
+    final isOnSplash = state.matchedLocation == AppRoutes.splash;
+    if (isOnSplash) return null;
+
     final isLoggedIn = GlobalDependencies.authService.currentUser != null;
     final isOnAuthFlow =
         state.matchedLocation == AppRoutes.auth ||
@@ -25,6 +29,10 @@ final appRouter = GoRouter(
     return null;
   },
   routes: [
+    GoRoute(
+      path: AppRoutes.splash,
+      builder: (context, state) => const SplashPage(),
+    ),
     GoRoute(
       path: AppRoutes.auth,
       builder: (context, state) => const AuthPage(),
