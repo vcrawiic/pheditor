@@ -9,6 +9,7 @@ import 'package:pheditor/pages/canvas/canvas_state.dart';
 import 'package:pheditor/pages/canvas/models/drawing_path.dart';
 import 'package:pheditor/repositories/image_repository.dart';
 import 'package:pheditor/services/cloudinary_service.dart';
+import 'package:pheditor/services/notification_service.dart';
 
 /// Управление состоянием холста для рисования
 class CanvasCubit extends Cubit<CanvasState> {
@@ -160,6 +161,7 @@ class CanvasCubit extends Cubit<CanvasState> {
       }
 
       emit(CanvasSaved(imageUrl: imageUrl));
+        await NotificationService.instance.showSaveSuccessNotification();
     } catch (e) {
       emit(
         CanvasError(
