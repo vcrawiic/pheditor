@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/design/pallete.dart';
 
 class FontStyles {
-  static const _fontFamilyPrimary = 'Roboto';
+  // static const _fontFamilyPrimary = 'Roboto';
   static const _fontFamilySecondary = 'PressStart2P';
 
   static final TextStyle ps2p = TextStyle(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/design/pallete.dart';
 
 class ImageCard extends StatelessWidget {
   final String imageUrl;

@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:pheditor/DI/global_dependencies.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/dependencies/global_dependencies.dart';
+import 'package:pheditor/design/pallete.dart';
 import 'package:pheditor/pages/canvas/canvas_args.dart';
 import 'package:pheditor/pages/canvas/canvas_cubit.dart';
 import 'package:pheditor/pages/canvas/canvas_state.dart';
@@ -172,7 +172,7 @@ class _CanvasViewState extends State<_CanvasView> {
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(file.path)],
-        subject: 'Изображение из Pheditor',
+          subject: 'Изображение из Pheditor',
           sharePositionOrigin: shareOrigin,
         ),
       );

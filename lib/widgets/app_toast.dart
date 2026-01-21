@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/design/pallete.dart';
 
 enum ToastType { success, error, info }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pheditor/DI/global_dependencies.dart';
+import 'package:pheditor/dependencies/global_dependencies.dart';
 import 'package:pheditor/navigation/routes.dart';
 import 'package:pheditor/pages/auth_page/auth_page.dart';
 import 'package:pheditor/pages/auth_page/registration_page.dart';

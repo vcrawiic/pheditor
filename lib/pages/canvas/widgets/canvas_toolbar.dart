@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pheditor/DS/icons.dart';
+import 'package:pheditor/design/icons.dart';
 import 'package:pheditor/pages/canvas/canvas_cubit.dart';
 import 'package:pheditor/pages/canvas/canvas_state.dart';
 import 'package:pheditor/pages/canvas/widgets/color_picker_dialog.dart';

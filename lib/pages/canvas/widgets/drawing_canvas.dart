@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/design/pallete.dart';
 import 'package:pheditor/pages/canvas/canvas_cubit.dart';
 import 'package:pheditor/pages/canvas/canvas_state.dart';
 import 'package:pheditor/pages/canvas/widgets/drawing_painter.dart';

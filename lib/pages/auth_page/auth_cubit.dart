@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/widgets.dart';
 import 'package:pheditor/services/auth_service.dart';
 import 'auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +61,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await _authService.signOut();
     } catch (_) {
-      print('logout error');
+      debugPrint('logout error');
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pheditor/DS/pallete.dart';
+import 'package:pheditor/design/pallete.dart';
 
 /// Палитра цветов 12x10 с градиентами
 class ColorPickerPopup extends StatelessWidget {
